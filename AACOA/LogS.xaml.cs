@@ -58,6 +58,24 @@ namespace AACOA
 
         private void tbpassword_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            Random random = new Random();
+            int code = random.Next(10000, 90000);
+            string ca = "";
+            string[] capcha = new string[9];
+            for (int i = 0; ca.Length < 8; i++)
+            {
+                if (random.Next(1, 3) == 1)
+                {
+                    capcha[i] = Convert.ToString(random.Next(0, 9)) + (char)(random.Next('A', 'Z'));
+                    ca = ca + capcha[i];
+                }
+                else
+                {
+                    capcha[i] = Convert.ToString(random.Next(0, 9)) + (char)(random.Next('a', 'z'));
+                    ca = ca + capcha[i];
+                }
+            }
+
             int pasGegCode = tbpassword.Password.GetHashCode();
             LogIn logIn = Base.EA.LogIn.FirstOrDefault(z => z.password == pasGegCode);
             if (e.Key == Key.Enter)
@@ -71,7 +89,11 @@ namespace AACOA
                         }
                         else
                         {
-                         
+                        if (MessageBox.Show(ca.ToString(), "Cгенерированный код доступа", MessageBoxButton.OK) == MessageBoxResult.OK) 
+                        {
+                            tbcode.IsEnabled = true;
+                            tbcode.Focus();
+                        }
                         }
                   
                 }
@@ -80,6 +102,15 @@ namespace AACOA
                     MessageBox.Show("Empty Password");
                 }
             }
+        }
+
+        private void btcancel_Click(object sender, RoutedEventArgs e)
+        {
+            tbnumber.Text = "";
+            tbpassword.Password = "";
+            tbcode.Text = "";
+            tbpassword.IsEnabled = false;
+            tbcode.IsEnabled = false;
         }
     }
 
