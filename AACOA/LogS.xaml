@@ -25,9 +25,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="5,0,0,0" Content="Код"></Label>
-                    <TextBox Margin="25,5,0,10" x:Name="tbcode" Width="173" IsEnabled="False"></TextBox>
+                    <TextBox Margin="25,5,0,10" x:Name="tbcode" Width="173" IsEnabled="False" PreviewKeyDown="tbcode_PreviewKeyDown"></TextBox>
 
-                    <Button Margin="5,0,0,6" x:Name="btrefresh" Width="23" Height="23" IsEnabled="False">
+                    <Button Margin="5,0,0,6" Click="btrefresh_Click" x:Name="btrefresh" Width="23" Height="23" IsEnabled="False">
                         <Image  Width="20" Height="20" Source="/Resources/На авторизацию_Обновление кода.jpg"  ></Image>
                     </Button>
                 </StackPanel>
@@ -36,7 +36,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
                 <Button Click="btcancel_Click" x:Name="btcancel" Margin="85,0,0,0" Width="75" Height="20" Content="Отмена" IsEnabled="True"></Button>
-                <Button x:Name="btlogin" Margin="30,0,0,0" Width="75" Height="20" Content="Вход" IsEnabled="False"></Button>
+                <Button x:Name="btlogin" Click="btlogin_Click" Margin="30,0,0,0" Width="75" Height="20" Content="Вход" IsEnabled="False"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>
