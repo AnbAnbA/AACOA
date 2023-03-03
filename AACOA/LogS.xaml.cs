@@ -29,7 +29,7 @@ namespace AACOA
             InitializeComponent();
             timer.Interval = new TimeSpan(0, 0, 20);
             timer.Tick += new EventHandler(Timer_Trick);
-            
+            tbnumber.Focus();
         }
         private void tbnumber_PreviewKeyDown(object sender, KeyEventArgs e)
         {
