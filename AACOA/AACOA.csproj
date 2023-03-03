@@ -158,6 +158,37 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="SotrudnikImage\ID1516.jpg" />
+    <Resource Include="SotrudnikImage\ID1517.jpg" />
+    <Resource Include="SotrudnikImage\ID1518.jpg" />
+    <Resource Include="SotrudnikImage\ID1519.jpg" />
+    <Resource Include="SotrudnikImage\ID1520.jpg" />
+    <Resource Include="SotrudnikImage\ID1521.jpg" />
+    <Resource Include="SotrudnikImage\ID1522.jpg" />
+    <Resource Include="SotrudnikImage\ID1523.jpg" />
+    <Resource Include="SotrudnikImage\ID1524.jpg" />
+    <Resource Include="SotrudnikImage\ID1525.jpg" />
+    <Resource Include="SotrudnikImage\ID1526.jpg" />
+    <Resource Include="SotrudnikImage\ID1527.jpg" />
+    <Resource Include="SotrudnikImage\ID1528.jpg" />
+    <Resource Include="SotrudnikImage\ID1529.jpg" />
+    <Resource Include="SotrudnikImage\ID1530.jpg" />
+    <Resource Include="SotrudnikImage\ID1531.jpg" />
+    <Resource Include="SotrudnikImage\ID1532.jpg" />
+    <Resource Include="SotrudnikImage\ID1533.jpg" />
+    <Resource Include="SotrudnikImage\ID1534.jpg" />
+    <Resource Include="SotrudnikImage\ID1535.jpg" />
+    <Resource Include="SotrudnikImage\ID1536.jpg" />
+    <Resource Include="SotrudnikImage\ID1537.jpg" />
+    <Resource Include="SotrudnikImage\ID1538.jpg" />
+    <Resource Include="SotrudnikImage\ID1539.jpg" />
+    <Resource Include="SotrudnikImage\ID1540.jpg" />
+    <Resource Include="SotrudnikImage\ID1541.jpg" />
+    <Resource Include="SotrudnikImage\ID1542.jpg" />
+    <Resource Include="SotrudnikImage\ID1543.jpg" />
+    <Resource Include="SotrudnikImage\ID1544.jpg" />
+    <Resource Include="SotrudnikImage\ID1545.jpg" />
+    <Resource Include="Resources\Фото для заглушки при отсутствии фото сотрудника.jpg" />
     <Resource Include="Resources\На авторизацию_Обновление кода.jpg" />
     <Resource Include="Resources\image.ico" />
     <Resource Include="Resources\ЛогоТНС.jpg" />
