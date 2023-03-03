@@ -5,7 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="377806588fda4528a68cd9f2dbfa619a" Name="Diagram1">
-        <EntityTypeShape EntityType="CRM2Model.LogIn" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM2Model.Role" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="CRM2Model.User" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="CRM2Model.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

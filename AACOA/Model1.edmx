@@ -5,41 +5,114 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище CRM2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="LogIn">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="number" Type="int" Nullable="false" />
           <Property Name="password" Type="int" Nullable="false" />
+          <Property Name="surname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="patronymic" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="idsotrudnik" Type="int" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище CRM2ModelContainer">
-          <EntitySet Name="LogIn" EntityType="Self.LogIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CRM2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LogIn" EntityType="CRM2Model.LogIn" />
+          <EntitySet Name="Role" EntityType="CRM2Model.Role" />
+          <EntitySet Name="User" EntityType="CRM2Model.User" />
+          <AssociationSet Name="FK_User_Role" Association="CRM2Model.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="LogIn">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="CRM2Model.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="number" Type="Int32" Nullable="false" />
           <Property Name="password" Type="Int32" Nullable="false" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="patronymic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idsotrudnik" Type="Int32" Nullable="false" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role1" Relationship="CRM2Model.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_User_Role">
+          <End Type="CRM2Model.Role" Role="Role" Multiplicity="1" />
+          <End Type="CRM2Model.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище CRM2ModelContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="LogIn">
-            <EntityTypeMapping TypeName="CRM2Model.LogIn">
-              <MappingFragment StoreEntitySet="LogIn">
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="CRM2Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="role1" ColumnName="role" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="CRM2Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="idsotrudnik" ColumnName="idsotrudnik" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="number" ColumnName="number" />
                 <ScalarProperty Name="id" ColumnName="id" />

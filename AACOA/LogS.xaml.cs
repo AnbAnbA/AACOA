@@ -21,26 +21,30 @@ namespace AACOA
     /// </summary>
     public partial class LogS : Page
     {
+        int num;
         DispatcherTimer timer = new DispatcherTimer();
         string ca = "";
         public LogS()
         {
             InitializeComponent();
-            timer.Interval = new TimeSpan(0, 0, 10);
+            timer.Interval = new TimeSpan(0, 0, 20);
             timer.Tick += new EventHandler(Timer_Trick);
             
         }
         private void tbnumber_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            int n = 0;
-            LogIn logIn=Base.EA.LogIn.FirstOrDefault(z=>z.number == n);
+            
+            
             if (e.Key == Key.Enter)
             {
+                int n = 0;
+                num = Convert.ToInt32(tbnumber.Text);
+                User logIn = Base.EA.User.FirstOrDefault(z => z.number == num);
                 if (tbnumber.Text != "")
                 {
                     if (int.TryParse(tbnumber.Text, out n))
                     {
-                        if (logIn != null)
+                        if (logIn == null)
                         {
                             MessageBox.Show("Not Number");
                         }
@@ -59,37 +63,51 @@ namespace AACOA
                 {
                     MessageBox.Show("Empty Number");
                 }
+                
             }
         }
 
         private void tbpassword_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Random random = new Random();
-            int code = random.Next(10000, 90000);
-            string ca = "";
-            string[] capcha = new string[9];
-            for (int i = 0; ca.Length < 8; i++)
-            {
-                if (random.Next(1, 3) == 1)
-                {
-                    capcha[i] = Convert.ToString(random.Next(0, 9)) + (char)(random.Next('A', 'Z'));
-                    ca = ca + capcha[i];
-                }
-                else
-                {
-                    capcha[i] = Convert.ToString(random.Next(0, 9)) + (char)(random.Next('a', 'z'));
-                    ca = ca + capcha[i];
-                }
-            }
-
-            int pasGegCode = tbpassword.Password.GetHashCode();
-            LogIn logIn = Base.EA.LogIn.FirstOrDefault(z => z.password == pasGegCode);
             if (e.Key == Key.Enter)
             {
+                Random random = new Random();
+                int code = random.Next(10000, 90000);
+                ca = "";
+                string sp = "!@#$%^&*()";
+                string cac = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+                string c="";
+                string[] capcha = new string[9];
+                for (int i = 0; ca.Length < 6; i++)
+                {
+                    if (random.Next(1, 3) == 1)
+                    {
+                        //capcha[i] = Convert.ToString(random.Next(0, 9)) + (char)(random.Next('A', 'Z')) ;
+                        ca = ca + (char)(random.Next('A', 'Z'));
+                    }
+                    else
+                    {
+                        //capcha[i] = (char)(random.Next('a', 'z')) ;
+                        ca = ca + (char)(random.Next('a', 'z'));
+                    }
+                    
+                }
+                ca = ca + Convert.ToString(random.Next(0, 9));
+                ca = ca + sp[random.Next(sp.Length)];
+
+
+                for (int i = 0; c.Length < 8; i++) 
+                {
+                    c = c + Convert.ToString(cac[random.Next(cac.Length)]);
+                }
+
+                    //int pasGegCode = tbpassword.Password.GetHashCode();
+                    int n = Convert.ToInt32(tbpassword.Password);
+                User logIn = Base.EA.User.FirstOrDefault(z => z.password == n);
                 if (tbpassword.Password != "")
                 {
                     
-                        if (logIn != null)
+                        if (logIn == null)
                         {
                             MessageBox.Show("Not Password");
                         }
@@ -118,22 +136,31 @@ namespace AACOA
             tbcode.Text = "";
             tbpassword.IsEnabled = false;
             tbcode.IsEnabled = false;
+            timer.Stop();
         }
 
         private void tbcode_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+           
+
             if (e.Key == Key.Enter)
             {
+                User user = Base.EA.User.FirstOrDefault(z => z.number == num);
                 if (tbcode.Text != "")
                 {
 
-                    if (ca == tbcode.Text)
+                    if (ca.ToString() != tbcode.Text.ToString())
                     {
                         MessageBox.Show("Not code");
+                        tbcode.IsEnabled = false;
+                        btrefresh.IsEnabled = true;
+                        btlogin.IsEnabled = false;
+                        timer.Stop();
                     }
                     else
                     {
-                        MessageBox.Show("Вы успешно авторизовались!");
+                        MessageBox.Show("Вы успешно авторизовались! Ваша роль "+ user.Role1.role1);
+                        timer.Stop();
                     }
 
                 }
@@ -150,13 +177,14 @@ namespace AACOA
             tbcode.IsEnabled = false;
             btrefresh.IsEnabled = true;
             btlogin.IsEnabled = false;
+            timer.Stop();
         }
 
         private void btrefresh_Click(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
             int code = random.Next(10000, 90000);
-            string ca = "";
+            ca = "";
             string[] capcha = new string[9];
             for (int i = 0; ca.Length < 8; i++)
             {
@@ -183,16 +211,22 @@ namespace AACOA
 
         private void btlogin_Click(object sender, RoutedEventArgs e)
         {
+            User user = Base.EA.User.FirstOrDefault(z => z.number == num);
             if (tbcode.Text != "")
             {
 
-                if (ca == tbcode.Text)
+                if (ca.ToString() != tbcode.Text.ToString())
                 {
                     MessageBox.Show("Not code");
+                    tbcode.IsEnabled = false;
+                    btrefresh.IsEnabled = true;
+                    btlogin.IsEnabled = false;
+                    timer.Stop();
                 }
                 else
                 {
-                    MessageBox.Show("Вы успешно авторизовались!");
+                    MessageBox.Show("Вы успешно авторизовались! Ваша роль " + user.Role1.role1);
+                    timer.Stop();
                 }
 
             }
