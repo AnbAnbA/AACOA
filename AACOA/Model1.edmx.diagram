@@ -5,8 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="377806588fda4528a68cd9f2dbfa619a" Name="Diagram1">
-        <EntityTypeShape EntityType="CRM2Model.Role" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="CRM2Model.User" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="CRM2Model.Event" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CRM2Model.InfoSotrudnik" Width="1.5" PointX="3" PointY="2.75" />
+        <EntityTypeShape EntityType="CRM2Model.Role" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="CRM2Model.User" Width="1.5" PointX="3" PointY="6.125" />
+        <AssociationConnector Association="CRM2Model.FK_InfoSotrudnik_Event" />
+        <AssociationConnector Association="CRM2Model.FK_InfoSotrudnik_Role" />
         <AssociationConnector Association="CRM2Model.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>

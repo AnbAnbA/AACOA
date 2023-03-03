@@ -25,6 +25,8 @@ namespace AACOA
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Event> Event { get; set; }
+        public virtual DbSet<InfoSotrudnik> InfoSotrudnik { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

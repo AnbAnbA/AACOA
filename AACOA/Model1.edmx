@@ -5,6 +5,23 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище CRM2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event" Type="nvarchar(max)" />
+          <Property Name="date" Type="date" />
+          <Property Name="time" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="InfoSotrudnik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleId" Type="int" />
+          <Property Name="eventId" Type="int" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
@@ -22,9 +39,33 @@
           <Property Name="surname" Type="nvarchar(max)" Nullable="false" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="patronymic" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="idsotrudnik" Type="int" Nullable="false" />
+          <Property Name="image" Type="nvarchar(max)" />
           <Property Name="role" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_InfoSotrudnik_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="InfoSotrudnik" Type="Self.InfoSotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InfoSotrudnik">
+              <PropertyRef Name="eventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoSotrudnik_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="InfoSotrudnik" Type="Self.InfoSotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InfoSotrudnik">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -38,8 +79,18 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище CRM2ModelContainer">
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InfoSotrudnik" EntityType="Self.InfoSotrudnik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_InfoSotrudnik_Event" Association="Self.FK_InfoSotrudnik_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="InfoSotrudnik" EntitySet="InfoSotrudnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoSotrudnik_Role" Association="Self.FK_InfoSotrudnik_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="InfoSotrudnik" EntitySet="InfoSotrudnik" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
@@ -50,19 +101,50 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CRM2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Event" EntityType="CRM2Model.Event" />
+          <EntitySet Name="InfoSotrudnik" EntityType="CRM2Model.InfoSotrudnik" />
           <EntitySet Name="Role" EntityType="CRM2Model.Role" />
           <EntitySet Name="User" EntityType="CRM2Model.User" />
+          <AssociationSet Name="FK_InfoSotrudnik_Event" Association="CRM2Model.FK_InfoSotrudnik_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="InfoSotrudnik" EntitySet="InfoSotrudnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoSotrudnik_Role" Association="CRM2Model.FK_InfoSotrudnik_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="InfoSotrudnik" EntitySet="InfoSotrudnik" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="CRM2Model.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="time" Type="Time" Precision="7" />
+          <NavigationProperty Name="InfoSotrudnik" Relationship="CRM2Model.FK_InfoSotrudnik_Event" FromRole="Event" ToRole="InfoSotrudnik" />
+        </EntityType>
+        <EntityType Name="InfoSotrudnik">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleId" Type="Int32" />
+          <Property Name="eventId" Type="Int32" />
+          <NavigationProperty Name="Event" Relationship="CRM2Model.FK_InfoSotrudnik_Event" FromRole="InfoSotrudnik" ToRole="Event" />
+          <NavigationProperty Name="Role" Relationship="CRM2Model.FK_InfoSotrudnik_Role" FromRole="InfoSotrudnik" ToRole="Role" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="role1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InfoSotrudnik" Relationship="CRM2Model.FK_InfoSotrudnik_Role" FromRole="Role" ToRole="InfoSotrudnik" />
           <NavigationProperty Name="User" Relationship="CRM2Model.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
@@ -75,10 +157,34 @@
           <Property Name="surname" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="patronymic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idsotrudnik" Type="Int32" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="role" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role1" Relationship="CRM2Model.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
+        <Association Name="FK_InfoSotrudnik_Event">
+          <End Type="CRM2Model.Event" Role="Event" Multiplicity="0..1" />
+          <End Type="CRM2Model.InfoSotrudnik" Role="InfoSotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InfoSotrudnik">
+              <PropertyRef Name="eventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoSotrudnik_Role">
+          <End Type="CRM2Model.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="CRM2Model.InfoSotrudnik" Role="InfoSotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InfoSotrudnik">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
           <End Type="CRM2Model.Role" Role="Role" Multiplicity="1" />
           <End Type="CRM2Model.User" Role="User" Multiplicity="*" />
@@ -97,6 +203,25 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище CRM2ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Event">
+            <EntityTypeMapping TypeName="CRM2Model.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="event1" ColumnName="event" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoSotrudnik">
+            <EntityTypeMapping TypeName="CRM2Model.InfoSotrudnik">
+              <MappingFragment StoreEntitySet="InfoSotrudnik">
+                <ScalarProperty Name="eventId" ColumnName="eventId" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="CRM2Model.Role">
               <MappingFragment StoreEntitySet="Role">
@@ -109,7 +234,7 @@
             <EntityTypeMapping TypeName="CRM2Model.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="idsotrudnik" ColumnName="idsotrudnik" />
+                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="patronymic" ColumnName="patronymic" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="surname" ColumnName="surname" />

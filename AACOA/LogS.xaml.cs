@@ -155,6 +155,7 @@ namespace AACOA
                         tbcode.IsEnabled = false;
                         btrefresh.IsEnabled = true;
                         btlogin.IsEnabled = false;
+                        tbcode.Text = "";
                         timer.Stop();
                     }
                     else
@@ -177,6 +178,7 @@ namespace AACOA
             tbcode.IsEnabled = false;
             btrefresh.IsEnabled = true;
             btlogin.IsEnabled = false;
+            tbcode.Text = "";
             timer.Stop();
         }
 
@@ -221,6 +223,7 @@ namespace AACOA
                     tbcode.IsEnabled = false;
                     btrefresh.IsEnabled = true;
                     btlogin.IsEnabled = false;
+                    tbcode.Text = "";
                     timer.Stop();
                 }
                 else

@@ -12,17 +12,20 @@ namespace AACOA
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Event
     {
-        public int id { get; set; }
-        public int number { get; set; }
-        public int password { get; set; }
-        public string surname { get; set; }
-        public string name { get; set; }
-        public string patronymic { get; set; }
-        public string image { get; set; }
-        public int role { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Event()
+        {
+            this.InfoSotrudnik = new HashSet<InfoSotrudnik>();
+        }
     
-        public virtual Role Role1 { get; set; }
+        public int id { get; set; }
+        public string event1 { get; set; }
+        public Nullable<System.DateTime> date { get; set; }
+        public Nullable<System.TimeSpan> time { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InfoSotrudnik> InfoSotrudnik { get; set; }
     }
 }

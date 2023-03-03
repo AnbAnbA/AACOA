@@ -12,17 +12,13 @@ namespace AACOA
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class InfoSotrudnik
     {
         public int id { get; set; }
-        public int number { get; set; }
-        public int password { get; set; }
-        public string surname { get; set; }
-        public string name { get; set; }
-        public string patronymic { get; set; }
-        public string image { get; set; }
-        public int role { get; set; }
+        public Nullable<int> roleId { get; set; }
+        public Nullable<int> eventId { get; set; }
     
-        public virtual Role Role1 { get; set; }
+        public virtual Event Event { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
