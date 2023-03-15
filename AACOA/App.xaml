@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:AACOA"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="BtnStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Background" Value="#4A67F7"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style.Setters>
+        </Style>
     </Application.Resources>
 </Application>

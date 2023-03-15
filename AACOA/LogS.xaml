@@ -35,8 +35,8 @@
                 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
-                <Button Click="btcancel_Click" x:Name="btcancel" Margin="85,0,0,0" Width="75" Height="20" Content="Отмена" IsEnabled="True"></Button>
-                <Button x:Name="btlogin" Click="btlogin_Click" Margin="30,0,0,0" Width="75" Height="20" Content="Вход" IsEnabled="False"></Button>
+                <Button Click="btcancel_Click" x:Name="btcancel" Margin="85,0,0,0" Width="75" Height="20" Content="Отмена" IsEnabled="True" Style="{StaticResource BtnStyle}"></Button>
+                <Button x:Name="btlogin" Click="btlogin_Click" Margin="30,0,0,0" Width="75" Height="20" Content="Вход" IsEnabled="False" Style="{StaticResource BtnStyle}" Cursor="Hand"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

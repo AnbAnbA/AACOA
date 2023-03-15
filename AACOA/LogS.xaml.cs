@@ -46,7 +46,7 @@ namespace AACOA
                     {
                         if (logIn == null)
                         {
-                            MessageBox.Show("Not Number");
+                            MessageBox.Show("Такого номера не существует в базе!");
                         }
                         else
                         {
@@ -109,7 +109,7 @@ namespace AACOA
                     
                         if (logIn == null)
                         {
-                            MessageBox.Show("Not Password");
+                            MessageBox.Show("Неправильно введен пароль!");
                         }
                         else
                         {
@@ -160,13 +160,14 @@ namespace AACOA
                     }
                     else
                     {
-                        MessageBox.Show("Вы успешно авторизовались! Ваша роль "+ user.Role1.role1);
                         timer.Stop();
+                        MessageBox.Show("Вы успешно авторизовались! Ваша роль "+ user.Role1.role1);
                     }
 
                 }
                 else
                 {
+                    timer.Stop();
                     MessageBox.Show("Empty code");
                 }
             }
