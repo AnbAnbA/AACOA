@@ -27,7 +27,7 @@ namespace AACOA
         public LogS()
         {
             InitializeComponent();
-            timer.Interval = new TimeSpan(0, 0, 20);
+            timer.Interval = new TimeSpan(0, 0, 10);
             timer.Tick += new EventHandler(Timer_Trick);
             tbnumber.Focus();
         }
